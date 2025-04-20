@@ -5,8 +5,9 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 const Login = () => {
-  const [emailId, setEmailId] = useState("suraj@gmail.com");
-  const [password, setPassword] = useState("Suraj@123");
+  const [emailId, setEmailId] = useState("snehal@gmail.com");
+  const [password, setPassword] = useState("Snehal@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   //const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ const Login = () => {
       dispatch(addUser(user.data));
       return navigate("/");
     } catch (err) {
-      console.log(err.message);
+      setError(err?.response?.data?.ErrorMessage || "Something went wrong");
+      console.log(err);
     }
   };
 
@@ -54,6 +56,18 @@ const Login = () => {
               placeholder="Password"
             />
           </fieldset>
+          {error && (
+            <div className="alert alert-error shadow-md mt-4 transition-all duration-300 ease-out">
+              <span className="font-medium">{error}</span>
+              <button
+                onClick={() => setError("")}
+                className="btn btn-sm btn-ghost ml-auto text-white"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           <div className="card-actions justify-center">
             <button className="btn btn-primary" onClick={handleLogin}>
               Login

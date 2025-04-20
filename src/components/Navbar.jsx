@@ -10,11 +10,25 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const handleLogout = async () => {
-  //   await axios.post(BASE_URL + "/logout", { withCredentials: true });
-  //   dispatch(removeUser());
-  //   return navigate("/login");
-  // };
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        BASE_URL + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(removeUser());
+      return navigate("/login");
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        navigate("/login");
+      } else {
+        console.error("Failed to fetch user:", err);
+      }
+    }
+  };
   return (
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
@@ -53,11 +67,7 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a
-                // onClick={handleLogout}
-                >
-                  Logout
-                </a>
+                <a onClick={handleLogout}>Logout</a>
               </li>
             </ul>
           </div>
