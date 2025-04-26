@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
+  const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,8 +37,19 @@ const Navbar = () => {
           DevTinder
         </Link>
       </div>
+
       {user && (
         <div className="flex gap-2">
+          <div className="indicator">
+            {requests && (
+              <span className="indicator-item badge badge-secondary">
+                {requests?.ResponseData.length}
+              </span>
+            )}
+            <button className="btn">
+              <Link to="/requests">inbox</Link>
+            </button>
+          </div>
           <div className="flex-1">
             <a className="btn btn-ghost text-xl">
               Welcome, {user.ResponseData.firstName}

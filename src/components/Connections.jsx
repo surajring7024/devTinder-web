@@ -13,7 +13,6 @@ const Connections = () => {
     });
 
     dispatch(addConnection(res.data));
-    console.log(res.data);
   };
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.length() === 0) return <h1>You dont have any connection!</h1>;
+  if (connections.length === 0) return <h1>You dont have any connection!</h1>;
 
   return (
     <div className="flex justify-center w-full">
