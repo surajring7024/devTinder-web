@@ -7,6 +7,7 @@ import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 import AuthTabs from "./components/AuthTabs";
 import EditProfile from "./components/EditProfile";
+import Connections from "./components/Connections";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/login" element={<AuthTabs />}></Route>
               <Route path="/profile" element={<Profile></Profile>}></Route>
               <Route path="/editProfile" element={<EditProfile />}></Route>
+              <Route path="/connections" element={<Connections />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>
