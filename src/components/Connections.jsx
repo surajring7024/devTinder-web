@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
+import ConnectionShimmer from "./shimmer/ConnectionShimmer";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connection);
@@ -19,8 +20,11 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return;
-  if (connections.length === 0) return <h1>You dont have any connection!</h1>;
+  if (!connections) return <ConnectionShimmer />;
+  if (connections.length === 0)
+    return (
+      <h1 className="text-2xl text-center">You dont have any connection!</h1>
+    );
 
   return (
     <div className="flex justify-center w-full">
