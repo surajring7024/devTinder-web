@@ -2,22 +2,13 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests, removeRequest } from "../utils/requestsSlice";
+import { removeRequest } from "../utils/requestsSlice";
+import { fetchRequests } from "../utils/sharedApi";
 
 const Requests = () => {
+  const user = useSelector((store) => store.user);
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
-
-  const fetchRequests = async () => {
-    try {
-      const res = await axios.get(BASE_URL + "/user/requests/recieve", {
-        withCredentials: true,
-      });
-      dispatch(addRequests(res.data));
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const reviewRequest = async (status, requestId) => {
     try {
@@ -33,12 +24,26 @@ const Requests = () => {
   };
 
   useEffect(() => {
-    fetchRequests();
-  }, []);
+    if (user && !requests) {
+      fetchRequests(dispatch);
+    }
+  }, [user]);
 
-  if (!requests) return;
-  if (requests.ResponseData.length == 0)
-    return <h1>Your dont have any request pending</h1>;
+  if (!requests) return null;
+
+  if (requests.ResponseData.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center bg-base-200 shadow-lg p-6 rounded-xl max-w-md mx-auto mt-10">
+        <span className="text-4xl mb-4">📭</span>
+        <h1 className="text-2xl font-semibold text-center text-white mb-2">
+          No Pending Requests
+        </h1>
+        <p className="text-gray-400 text-center">
+          You're all caught up! Come back later to see new requests.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center w-full">

@@ -28,15 +28,23 @@ const Feed = () => {
 
   if (!feed) {
     return (
-      <div className="text-center text-xl">
-        <Shimmer></Shimmer>
+      <div className="flex justify-center items-center h-64">
+        <Shimmer />
       </div>
     );
   }
+
   if (feed.length === 0) {
     return (
-      <div className="text-2xl text-white text-center my-10">
-        No more profiles
+      <div className="flex flex-col items-center justify-center h-64 bg-base-200 rounded-xl shadow-md mx-auto max-w-xl my-10">
+        <span className="text-5xl mb-4">🎉</span>
+        <h2 className="text-2xl font-semibold text-white mb-2">
+          No More Profiles
+        </h2>
+        <p className="text-gray-400 text-center px-4">
+          You’ve reached the end for now. Come back later for more profiles to
+          explore!
+        </p>
       </div>
     );
   }

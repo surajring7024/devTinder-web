@@ -143,55 +143,56 @@ const Profile = () => {
           </div>
           {showEditProfile && <EditProfile user={user} />}
           {showForgot && (
-            <div className="mt-6 bg-base-100 p-4 rounded-box shadow w-full">
-              <h3 className="text-lg font-semibold mb-4">🔐 Reset Password</h3>
+            <div className="mt-6 bg-base-100 p-6 rounded-box shadow w-full max-w-2xl mx-auto">
+              <h3 className="text-xl font-semibold mb-6 text-center">
+                🔐 Reset Password
+              </h3>
 
-              <div className="form-control mb-3 w-8/12">
-                <label className="label m-2 p-2 w-4/12">
+              <div className="form-control mb-3 w-full">
+                <label className="label mb-1 text-left">
                   Security Question
                 </label>
                 <input
-                  className="input input-bordered bg-gray-100 cursor-not-allowed w-7/12"
+                  className="input input-bordered bg-gray-100 cursor-not-allowed w-full"
                   value={securityQuestion}
                   readOnly
                   disabled
                 />
               </div>
 
-              <div className="form-control mb-3 w-8/12">
-                <label className="label m-2 p-2 w-4/12">Answer</label>
+              <div className="form-control mb-3 w-full">
+                <label className="label mb-1 text-left">Answer</label>
                 <input
-                  className="input input-bordered w-7/12"
+                  className="input input-bordered w-full"
                   placeholder="Answer"
                   value={answer}
                   onChange={(e) => setAnswer(e.target.value)}
                 />
               </div>
 
-              <div className="form-control mb-3 w-8/12">
-                <label className="label m-2 p-2 w-4/12">New Password</label>
+              <div className="form-control mb-3 w-full">
+                <label className="label mb-1 text-left">New Password</label>
                 <input
                   type="password"
-                  className="input input-bordered w-7/12"
+                  className="input input-bordered w-full"
                   value={newPassword}
                   placeholder="New Password"
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
 
-              <div className="form-control mb-3 w-8/12">
-                <label className="label m-2 p-2 w-4/12">
-                  Verify New Password
-                </label>
+              <div className="form-control mb-3 w-full">
+                <label className="label mb-1 text-left">Verify Password</label>
                 <input
                   type="password"
-                  className="input input-bordered w-7/12"
+                  className="input input-bordered w-full"
                   value={verifyPassword}
                   placeholder="Verify New Password"
                   onChange={(e) => setVerifyPassword(e.target.value)}
                 />
               </div>
 
+              {/* Error/Success Messages */}
               {error && (
                 <div className="alert alert-error shadow-md mt-2 transition-all duration-300 ease-out">
                   <span className="font-medium">{error}</span>
@@ -203,6 +204,7 @@ const Profile = () => {
                   </button>
                 </div>
               )}
+
               {message && (
                 <div className="alert alert-success shadow-md mt-2 transition-all duration-300 ease-out">
                   <span className="font-medium">{message}</span>
@@ -215,12 +217,15 @@ const Profile = () => {
                 </div>
               )}
 
-              <button
-                className="btn btn-primary mt-4"
-                onClick={handlePasswordReset}
-              >
-                Reset Password
-              </button>
+              {/* Submit Button */}
+              <div className="flex justify-end">
+                <button
+                  className="btn btn-primary mt-6 w-full sm:w-1/3"
+                  onClick={handlePasswordReset}
+                >
+                  Reset Password
+                </button>
+              </div>
             </div>
           )}
         </div>

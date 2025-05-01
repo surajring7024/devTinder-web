@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { BASE_URL } from "../utils/constants";
-
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 const EditProfile = ({ user }) => {
   const [photourl, setPhotourl] = useState(user.photourl || "");
   const [about, setAbout] = useState(user.about || "");
   const [skillInput, setSkillInput] = useState("");
   const [skills, setSkills] = useState(user.skills || []);
   const [error, setError] = useState({});
+
+  const dispatch = useDispatch();
 
   const validateForm = () => {
     const newErrors = {};
@@ -35,11 +38,12 @@ const EditProfile = ({ user }) => {
     if (!validateForm()) return;
 
     try {
-      await axios.put(
+      const res = await axios.put(
         BASE_URL + "/profile/edit",
         { photourl, about, skills },
         { withCredentials: true }
       );
+      dispatch(addUser(res.data.ResponseData));
       setError({});
       // Optionally show success message or close modal
     } catch (err) {

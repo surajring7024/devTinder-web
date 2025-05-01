@@ -6,8 +6,12 @@ const requestsSlice = createSlice({
   reducers: {
     addRequests: (state, action) => action.payload,
     removeRequest: (state, action) => {
-      const newArray = state.filter((r) => r._id !== action.payload);
-      return newArray;
+      return {
+        ...state,
+        ResponseData: state.ResponseData.filter(
+          (r) => r._id !== action.payload
+        ),
+      };
     },
   },
 });
