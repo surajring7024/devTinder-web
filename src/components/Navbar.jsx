@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/userSlice";
 import axios from "axios";
@@ -10,7 +10,7 @@ import { removeConnection } from "../utils/connectionSlice";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user?.ResponseData);
-  const requests = useSelector((store) => store.requests);
+  const requests = useSelector((store) => store.requests?.ResponseData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ const Navbar = () => {
       }
     }
   };
+
   return (
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
@@ -49,7 +50,7 @@ const Navbar = () => {
           <div className="indicator">
             {requests && (
               <span className="indicator-item badge badge-secondary">
-                {requests?.ResponseData.length}
+                {requests?.length}
               </span>
             )}
             <button className="btn">

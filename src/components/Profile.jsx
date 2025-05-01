@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
@@ -18,9 +18,7 @@ const Profile = () => {
   const [message, setMessage] = useState("");
 
   const securityQuestion = user?.securityQuestion?.[0]?.question || "";
-  if (!user) {
-    return navigate("/login");
-  }
+
   const handlePasswordReset = async () => {
     try {
       if (!answer || !newPassword || !verifyPassword) {
@@ -49,7 +47,12 @@ const Profile = () => {
       setMessage("");
     }
   };
-
+  useEffect(() => {
+    if (user === undefined) return;
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
   return (
     user && (
       <>
