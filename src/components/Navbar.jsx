@@ -4,9 +4,12 @@ import { removeUser } from "../utils/userSlice";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
+import { removeAllFeed } from "../utils/feedSlice";
+import { removeAllRequests } from "../utils/requestsSlice";
+import { removeConnection } from "../utils/connectionSlice";
 
 const Navbar = () => {
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user?.ResponseData);
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,6 +24,9 @@ const Navbar = () => {
         }
       );
       dispatch(removeUser());
+      dispatch(removeAllFeed());
+      dispatch(removeAllRequests());
+      dispatch(removeConnection());
       return navigate("/login");
     } catch (err) {
       if (err.response && err.response.status === 401) {
@@ -52,7 +58,7 @@ const Navbar = () => {
           </div>
           <div className="flex-1">
             <a className="btn btn-ghost text-xl">
-              Welcome, {user.ResponseData.firstName}
+              Welcome, {user?.firstName || "Guest"}
             </a>
           </div>
           <div className="dropdown dropdown-end mx-5">
@@ -62,7 +68,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="img" src={user.ResponseData.photourl} />
+                <img alt="img" src={user?.photourl || ""} />
               </div>
             </div>
             <ul

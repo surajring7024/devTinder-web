@@ -4,11 +4,13 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { removeRequest } from "../utils/requestsSlice";
 import { fetchRequests } from "../utils/sharedApi";
+import { useNavigate } from "react-router-dom";
 
 const Requests = () => {
   const user = useSelector((store) => store.user);
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const reviewRequest = async (status, requestId) => {
     try {
@@ -29,7 +31,7 @@ const Requests = () => {
     }
   }, [user]);
 
-  if (!requests) return null;
+  if (!requests) return navigate("/login");
 
   if (requests.ResponseData.length === 0) {
     return (

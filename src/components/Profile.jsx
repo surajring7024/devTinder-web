@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import EditProfile from "./EditProfile";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const user = useSelector((store) => store.user?.ResponseData);
+  const navigate = useNavigate();
 
   const [showForgot, setShowForgot] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
@@ -16,7 +18,9 @@ const Profile = () => {
   const [message, setMessage] = useState("");
 
   const securityQuestion = user?.securityQuestion?.[0]?.question || "";
-
+  if (!user) {
+    return navigate("/login");
+  }
   const handlePasswordReset = async () => {
     try {
       if (!answer || !newPassword || !verifyPassword) {

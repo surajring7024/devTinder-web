@@ -28,7 +28,7 @@ const Feed = () => {
 
   if (!feed) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center min-h-screen pt-16">
         <Shimmer />
       </div>
     );

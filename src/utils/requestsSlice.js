@@ -13,8 +13,10 @@ const requestsSlice = createSlice({
         ),
       };
     },
+    removeAllRequests: () => null,
   },
 });
 
-export const { addRequests, removeRequest } = requestsSlice.actions;
+export const { addRequests, removeRequest, removeAllRequests } =
+  requestsSlice.actions;
 export default requestsSlice.reducer;
